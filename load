@@ -1,0 +1,76 @@
+-- Create ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+
+-- Create Frame for the loading box
+local loadingFrame = Instance.new("Frame")
+loadingFrame.Size = UDim2.new(0, 250, 0, 120)  -- Adjusted for title and progress bar
+loadingFrame.Position = UDim2.new(0.5, -125, 0.5, -60)  -- Center of the screen
+loadingFrame.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+loadingFrame.BorderSizePixel = 2
+loadingFrame.Parent = screenGui
+
+-- Title Text "LOADING SCRIPT"
+local titleText = Instance.new("TextLabel")
+titleText.Size = UDim2.new(1, 0, 0.3, 0)
+titleText.Position = UDim2.new(0, 0, 0, 5)
+titleText.Text = "LOADING SCRIPT"
+titleText.TextColor3 = Color3.fromRGB(255, 255, 255)
+titleText.BackgroundTransparency = 1
+titleText.Font = Enum.Font.SourceSansBold
+titleText.TextSize = 20
+titleText.Parent = loadingFrame
+
+-- Loading Text "Loading, please wait..."
+local loadingText = Instance.new("TextLabel")
+loadingText.Size = UDim2.new(1, 0, 0.3, 0)
+loadingText.Position = UDim2.new(0, 0, 0.4, 0)
+loadingText.Text = "Loading, please wait..."
+loadingText.TextColor3 = Color3.fromRGB(255, 255, 255)
+loadingText.BackgroundTransparency = 1
+loadingText.Font = Enum.Font.SourceSans
+loadingText.TextSize = 16
+loadingText.Parent = loadingFrame
+
+-- Progress Bar Frame
+local progressBarBg = Instance.new("Frame")
+progressBarBg.Size = UDim2.new(0.8, 0, 0.2, 0)
+progressBarBg.Position = UDim2.new(0.1, 0, 0.8, 0)
+progressBarBg.BackgroundColor3 = Color3.fromRGB(80, 80, 80)
+progressBarBg.BorderSizePixel = 1
+progressBarBg.Parent = loadingFrame
+
+-- Progress Bar Fill
+local progressBarFill = Instance.new("Frame")
+progressBarFill.Size = UDim2.new(0, 0, 1, 0)
+progressBarFill.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+progressBarFill.BorderSizePixel = 0
+progressBarFill.Parent = progressBarBg
+
+-- Percentage Text on the progress bar
+local percentageText = Instance.new("TextLabel")
+percentageText.Size = UDim2.new(1, 0, 1, 0)
+percentageText.Position = UDim2.new(0, 0, 0, 0)
+percentageText.Text = "Loading 0%"
+percentageText.TextColor3 = Color3.fromRGB(255, 255, 255)
+percentageText.BackgroundTransparency = 1
+percentageText.Font = Enum.Font.SourceSansBold
+percentageText.TextSize = 14
+percentageText.Parent = progressBarBg
+
+-- Update the progress bar and percentage text over 50 seconds
+local duration = 100
+for i = 1, duration do
+    wait(1)
+    local percent = math.floor((i / duration) * 100)
+    progressBarFill.Size = UDim2.new(i / duration, 0, 1, 0)
+    percentageText.Text = "Loading " .. percent .. "%"
+end
+
+-- Set to 100% on completion
+progressBarFill.Size = UDim2.new(1, 0, 1, 0)
+percentageText.Text = "Loading 100%"
+
+-- Destroy the loading GUI
+wait(1)
+screenGui:Destroy()
